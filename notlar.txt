@@ -1,8 +1,0 @@
-** Java EE projesi - Adım adım hibernate - persistence.xml - spring eklemeleri yapılıyor. Temelden bir yapı oluşturuluyor.
-
-** Proje icin HIBERNATE kullanılıyoruz. Yapılandırmasını pom.xml icerisinde bulabilirsin. JPA uygulamak adına
-
-** Hibernate ile db bağlantılarını persistence.xml icerisinde tanımlıyoruz. Ve entitylerimizi burada class olarak belirtiyoruz. DotNet Core tarafında Context
-içerisinde tanımlama yapar gibi
-
-** Spring boot kullanıldığında bu xml yapılandırmalarına gerek kalmadan spring boot bizim için bu işleri düzenliyor.
