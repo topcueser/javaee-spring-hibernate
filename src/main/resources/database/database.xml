@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Apache commons altındaki data source örneği -->
+	<bean id="basicDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="username" value="root"></property>
+		<property name="password" value="1223"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost/javaee-employee"></property>
+	</bean>
+	
+	<!-- Spring Framework altındaki data source örneği -->
+	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="username" value="root"></property>
+		<property name="password" value="1223"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost/javaee-employee"></property>
+	</bean>
+	
+	<!-- Hibernate için data source örneği - db bilgileri burada verildi. ** bunu kullanıyoruz ** -->
+	<bean id="ComboPooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="user" value="root"></property>
+		<property name="password" value="1223"></property>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost/javaee-employee"></property>
+		
+		<property name="minPoolSize" value="5"></property>
+		<property name="maxPoolSize" value="100"></property>
+		<property name="acquireIncrement" value="10"></property>
+		<property name="maxStatements" value="200"></property>
+		<property name="idleConnectionTestPeriod" value="300"></property>
+		<property name="maxIdleTime" value="2500"></property>
+	</bean>
+	
+	<!-- 
+	
+		Application Managed: - entity Manager yaşam döngüsü bizim elimizde oluyor.
+		
+			<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean"></bean>
+			
+			@Autowired veya @PersistenceUnit
+			EntityManagerFactory emf;
+			
+			EntityManager em = emf.createEntityManager();
+			
+		
+		Container Managed: - Entity Manager yaşam döngüsünü spring e devretmiş oluyoruz. Bunu kullanalım.
+		
+			<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"></bean>
+			
+			@PersistenceContext
+			EntityManager em;
+
+	 -->
+	 
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		
+		<property name="dataSource" ref="ComboPooledDataSource"></property> <!-- Yukarıda tanımlanan dataSource lardan birini kullanmak için burada belirtiyoruz. -->
+		<!-- <property name="persistenceUnitName" value="my_pu"></property> --> <!-- persistence.xml üzerinden tanımlama yapmak için -->
+		
+		<!-- Hibernate i kullanması gerektiğini belirtiyoruz. -->
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean> <!-- yukarıda ayrı bean olarak tanımlayıp buraya referans olarakta verebilirdik. -->
+		</property>
+		
+		<!-- Entity lerimizin paketini tanımlıyoruz -->
+		<property name="packagesToScan" value="com.esertopcu.domain"></property>
+		
+		<!-- Hibernate için bazı özellikleri tanımlıyoruz. -->
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+			</props>
+		</property>
+		
+	</bean>
+	
+	<!-- database.xml üzerindeki Namespaces alanından tx = transaction i aktif ediyoruz. -->
+	<!-- Transaction yönetimi için manager bean kısımlarının oluşturuyoruz -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	
+	<!-- tx için transaction manager nesnemizi tanımlıyoruz -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.esertopcu.javaee</groupId>
+  <artifactId>com.esertopcu.javaee</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <properties>
+  	<hibernate.version>5.4.31.Final</hibernate.version>
+    <spring.version>5.2.8.RELEASE</spring.version>
+  </properties>
+  
+  <build>
+  	<plugins>
+  		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-compiler-plugin</artifactId>
+		    <version>3.8.0</version>
+		    <configuration>
+		        <source>1.8</source>
+		        <target>1.8</target>
+		    </configuration>
+		</plugin>
+  	</plugins>
+  </build>
+  
+  <dependencies>
+  	
+	  	<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>${hibernate.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-entitymanager</artifactId>
+		    <version>${hibernate.version}</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-c3p0</artifactId>
+		    <version>${hibernate.version}</version>
+		</dependency>
+		
+		<!-- Spring security password hash -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.4.6</version>
+		</dependency>
+		
+		<!-- Special template provide -->
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>23.0</version>
+		</dependency>
+		
+		<!-- Password Validation -->
+		<dependency>
+		    <groupId>org.passay</groupId>
+		    <artifactId>passay</artifactId>
+		    <version>1.6.0</version>
+		</dependency>
+		
+		<!-- javax validation -->
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		    <version>2.0.1.Final</version>
+		</dependency>
+		
+		<!-- Hibernate validation -->
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>7.0.1.Final</version>
+		</dependency>
+		
+		<dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-expression</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+		
+		<dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-orm</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-context-support</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-tx</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+		
+		<dependency>
+	        <groupId>org.springframework</groupId>
+	        <artifactId>spring-aop</artifactId>
+	        <version>${spring.version}</version>
+	    </dependency>
+	    
+	    
+	    <!-- 
+	    
+	    	org.apache.commons.dbcp2.BasicDataSource
+	    	
+	    	http://vigilbose.blogspot.com.tr/2009/037apache-commons-dbcp-and-tomcat-jdbc.html
+	    	
+	    	** persistence.xml dosyasını kullanmayacağız. Bunu için bazı firmalar özel kütüphaneler oluşturarak db bağlantılarını yapabiliriz.
+	    	** o kütüphanelerden biri de apache-commons
+	    
+	     -->
+	    
+	    <dependency>
+	        <groupId>org.apache.commons</groupId>
+	        <artifactId>commons-dbcp2</artifactId>
+	        <version>2.8.0</version>
+	    </dependency>
+	
+  </dependencies>
+  
+</project>
